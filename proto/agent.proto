@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package agent;
+
+option go_package = "polyglot/backend/internal/pb;pb";
+
+service AgentRuntimeService {
+  rpc ExecuteTask(TaskRequest) returns (stream AgentEvent);
+  rpc HealthCheck(HealthRequest) returns (HealthResponse);
+}
+
+message TaskRequest {
+  string task_id = 1;
+  string workspace_id = 2;
+  string workspace_root = 3;
+  string prompt = 4;
+  int32 max_iterations = 5;
+  string tool_callback_url = 6;
+}
+
+message AgentEvent {
+  string task_id = 1;
+  int32 iteration = 2;
+  // Event types: "THOUGHT", "TOOL_CALL", "TOOL_RESULT", "FINAL_ANSWER", "ERROR", "STATUS"
+  string event_type = 3;
+  string content = 4;
+  string tool_name = 5;
+  string tool_args_json = 6;
+  string tool_output = 7;
+  string structured_report_json = 8;
+  string timestamp = 9;
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  string status = 1;
+  string llm_provider = 2;
+  string llm_model = 3;
+  bool llm_configured = 4;
+  string version = 5;
+}

@@ -1,0 +1,23 @@
+# Binaries & build artifacts
+backend/server.exe
+backend/*.db
+backend/*.db-shm
+backend/*.db-wal
+*.exe
+*.exe~
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Python
+agent-runtime/.venv/
+agent-runtime/__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment & generated demo workspaces
+.env
+agent-runtime/.env
+workspaces/
